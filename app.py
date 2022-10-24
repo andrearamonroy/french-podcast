@@ -1,5 +1,5 @@
 from flask import Flask, jsonify
-import os 
+#import os 
 from flask_sqlalchemy import SQLAlchemy
 from marshmallow import Schema, fields
 
@@ -9,7 +9,7 @@ from marshmallow import Schema, fields
 
 app = Flask(__name__)
 #basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI']='postgres://xrbncjawkgbyyk:cd7cf74f97fd80a43cc5422fceaa88f3b1618374cfad73d771930a34e6f65017@ec2-44-199-22-207.compute-1.amazonaws.com:5432/dfp3agm8fn43e7' 
+app.config['SQLALCHEMY_DATABASE_URI']='postgresql://xrbncjawkgbyyk:cd7cf74f97fd80a43cc5422fceaa88f3b1618374cfad73d771930a34e6f65017@ec2-44-199-22-207.compute-1.amazonaws.com:5432/dfp3agm8fn43e7' 
 #+ os.path.join(basedir, 'database.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False    
 
