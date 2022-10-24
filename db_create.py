@@ -1,3 +1,11 @@
-from app import db
+import click
+from flask.cli import with_appcontext
 
-db.create_all()
+from .app import db, Level, Unit
+
+@click.command(name='create tables')
+@with_appcontext
+def create_tables():
+    db.create_all()
+
+

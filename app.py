@@ -5,8 +5,6 @@ from marshmallow import Schema, fields
 
 
 
-
-
 app = Flask(__name__)
 #basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI']='postgresql://xrbncjawkgbyyk:cd7cf74f97fd80a43cc5422fceaa88f3b1618374cfad73d771930a34e6f65017@ec2-44-199-22-207.compute-1.amazonaws.com:5432/dfp3agm8fn43e7' 
@@ -59,13 +57,13 @@ unit_schema = UnitSchema(many=True)
 # unit2 = Unit(unit='Unit 1', level= level2)
 # unit3 = Unit(unit='Unit 1', level= level3)
 
-db.init_app(app)
-with app.app_context(): 
-    #db.drop_all()
-    db.create_all()
-    # db.session.add_all([level1,level2,level3])
-    # db.session.add_all([unit1,unit2,unit3])
-    db.session.commit()
+# db.init_app(app)
+# with app.app_context(): 
+#     #db.drop_all()
+#     db.create_all()
+#     # db.session.add_all([level1,level2,level3])
+#     # db.session.add_all([unit1,unit2,unit3])
+#     db.session.commit()
 
 @app.route('/api/levels', methods=['GET'])
 def get_levels():
