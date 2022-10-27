@@ -7,16 +7,30 @@ from flask.cli import with_appcontext
 
 
 
+
 app = Flask(__name__)
 #basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI']='postgresql://xrbncjawkgbyyk:cd7cf74f97fd80a43cc5422fceaa88f3b1618374cfad73d771930a34e6f65017@ec2-44-199-22-207.compute-1.amazonaws.com:5432/dfp3agm8fn43e7' 
 #+ os.path.join(basedir, 'database.db')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False    
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  
+ 
 
-db = SQLAlchemy()
+
+
+
 #ma = Marshmallow()
 
+class MySQLAlchemy(SQLAlchemy):
+    def get_tables_for_bind(self, bind=None):
+        result = []
+        for table in self.Model.metadata.tables.values():
+            # if table.info.get('bind_key') == bind:
+            if table.info.get('bind_key') == bind or (bind is not None and table.info.get('bind_key') == '__all__'):
+                result.append(table)
+        return result
 
+db = MySQLAlchemy(app)
+db.init_app(app)
     
 class Level(db.Model):
     id = db.Column(db.Integer, primary_key=True)
