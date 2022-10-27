@@ -59,9 +59,10 @@ unit1 = Unit(unit='Unit 1', level= level1)
 unit2 = Unit(unit='Unit 1', level= level2)
 unit3 = Unit(unit='Unit 1', level= level3)
 
-@app.click.command(name='create_tables')
+@app.cli.command(name='create_tables')
+@click.argument("tables")
 @with_appcontext
-def create_tables():
+def create_tables(tables):
     db.create_all()
     db.session.add_all([level1,level2,level3])
     db.session.add_all([unit1,unit2,unit3])
