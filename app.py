@@ -2,6 +2,8 @@ from flask import Flask, jsonify
 #import os 
 from flask_sqlalchemy import SQLAlchemy
 from marshmallow import Schema, fields
+import click
+from flask.cli import with_appcontext
 
 
 
@@ -49,21 +51,22 @@ levels_schema = LevelSchema(many=True)
 unit_schema = UnitSchema()
 unit_schema = UnitSchema(many=True)
 
-# level1 = Level(french_level='Débutant')
-# level2 = Level(french_level='Intermédiaire')
-# level3 = Level(french_level='Avancé')
+level1 = Level(french_level='Débutant')
+level2 = Level(french_level='Intermédiaire')
+level3 = Level(french_level='Avancé')
 
-# unit1 = Unit(unit='Unit 1', level= level1)
-# unit2 = Unit(unit='Unit 1', level= level2)
-# unit3 = Unit(unit='Unit 1', level= level3)
+unit1 = Unit(unit='Unit 1', level= level1)
+unit2 = Unit(unit='Unit 1', level= level2)
+unit3 = Unit(unit='Unit 1', level= level3)
 
-# db.init_app(app)
-# with app.app_context(): 
-#     #db.drop_all()
-#     db.create_all()
-#     # db.session.add_all([level1,level2,level3])
-#     # db.session.add_all([unit1,unit2,unit3])
-#     db.session.commit()
+@app.click.command(name='create_tables')
+@with_appcontext
+def create_tables():
+    db.create_all()
+    db.session.add_all([level1,level2,level3])
+    db.session.add_all([unit1,unit2,unit3])
+    db.session.commit()
+
 
 @app.route('/api/levels', methods=['GET'])
 def get_levels():
