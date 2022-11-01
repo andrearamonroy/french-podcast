@@ -133,8 +133,8 @@ unit3 = Unit(unit_name='Unit 1', level= level3)
 def create_tables():
     #db.drop_all()
     db.create_all()
-    # db.session.add_all([level1,level2,level3])
-    # db.session.add_all([unit1,unit2,unit3])
+    db.session.add_all([level1,level2,level3])
+    db.session.add_all([unit1,unit2,unit3])
     # db.session.add_all([podcast1])
     db.session.commit()
 
