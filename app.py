@@ -128,6 +128,8 @@ unit3 = Unit(unit_name='Unit 1', level= level3)
 
 # db.drop_all()
 
+
+
 @app.cli.command(name='create_tables')
 @with_appcontext
 def create_tables():
