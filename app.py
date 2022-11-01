@@ -1,9 +1,11 @@
-from flask import Flask, jsonify
-#import os 
+from fileinput import filename
+from flask import Flask, jsonify, request, redirect, url_for
+import os 
 from flask_sqlalchemy import SQLAlchemy
 from marshmallow import Schema, fields
 import click
 from flask.cli import with_appcontext
+from werkzeug.utils import secure_filename
 
 
 
@@ -14,12 +16,11 @@ app.config['SQLALCHEMY_DATABASE_URI']='postgresql://xrbncjawkgbyyk:cd7cf74f97fd8
 #+ os.path.join(basedir, 'database.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  
  
-
-
-
-
+ 
 #ma = Marshmallow()
 
+#bind_key = none problem, need bidings in all tables
+#Solution: Override SQLAlchemy get_tables_for_bind() to support '__all__'.
 class MySQLAlchemy(SQLAlchemy):
     def get_tables_for_bind(self, bind=None):
         result = []
@@ -34,28 +35,38 @@ db.init_app(app)
     
 class Level(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    french_level = db.Column(db.String(100), unique=True)
+    level_name = db.Column(db.String(100), unique=True)
     units = db.relationship('Unit', backref='level')
 
 class Unit(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    unit = db.Column(db.String(250), nullable=False)
+    unit_name = db.Column(db.String(250), nullable=False)
     level_id = db.Column(db.Integer, db.ForeignKey('level.id'))
+    podcasts = db.relationship('Podcast', backref='unit')
 
+class Podcast(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    podcast_name = db.Column(db.String(250), nullable=False)
+    podcast = db.Column(db.String(500))
+    image = db.Column(db.String(500))
+    unit_id = db.Column(db.Integer, db.ForeignKey('unit.id'))
+
+#podcast schema
+class PodcastSchema(Schema):
+    class Meta:
+        fields = ('id', 'podcast_name', 'podcast', 'image' ,'unit_id')  
 
 #unit schema
 class UnitSchema(Schema):
     class Meta:
-        fields = ('id', 'unit', 'level_id')  
+        fields = ('id', 'unit_name', 'level_id', 'podcasts') 
+    podcasts = fields.Nested(PodcastSchema, many=True)
 
 #level
 class LevelSchema(Schema):
     class Meta:
-        fields = ('id', 'french_level', 'units')
+        fields = ('id', 'level_name', 'units')
     units = fields.Nested(UnitSchema, many=True)
-
-
-
 
 #init level schema
 level_schema = LevelSchema()
@@ -65,21 +76,67 @@ levels_schema = LevelSchema(many=True)
 unit_schema = UnitSchema()
 unit_schema = UnitSchema(many=True)
 
-level1 = Level(french_level='Débutant')
-level2 = Level(french_level='Intermédiaire')
-level3 = Level(french_level='Avancé')
+#init podcast schema
+podcast_schema = PodcastSchema()
+podcast_schema= PodcastSchema(many=True)
 
-unit1 = Unit(unit='Unit 1', level= level1)
-unit2 = Unit(unit='Unit 1', level= level2)
-unit3 = Unit(unit='Unit 1', level= level3)
+#save podcast
+podcasts_folder = '/Users/andreamonroy/Documents/postgres/static/podcasts'
+app.config['podcasts_folder'] = podcasts_folder
+
+def save_file(filename, data):
+    path = os.path.join(app.config['podcasts_folder'], filename)
+    fp = open(path, 'wb')
+    fp.write(data)
+    fp.close()
+
+#save_file('dialogue1.mp3', 'mp3')
+
+
+#save image
+images_folder = '/Users/andreamonroy/Documents/postgres/static/images'
+app.config['images_folder'] = images_folder
+
+def save_image(filename, data):
+    path = os.path.join(app.config['images_folder'], filename)
+    fp = open(path, 'wb')
+    fp.write(data)
+    fp.close()
+
+#save_image('dig1.png', 'png')
+
+
+#binary data 
+# def load_file(filename):
+#     path = os.path.join(app.config['podcasts_folder'], filename)
+#     fp = open(path, 'rb')
+#     data = fp.read()
+#     fp.close()
+#     return data
+
+# load_file('dialogue1.mp3')
+
+level1 = Level(level_name='Débutant')
+level2 = Level(level_name='Intermédiaire')
+level3 = Level(level_name='Avancé')
+
+unit1 = Unit(unit_name='Unit 1', level= level1)
+unit2 = Unit(unit_name='Unit 1', level= level2)
+unit3 = Unit(unit_name='Unit 1', level= level3)
+
+# podcast1 = Podcast(name = 'vous êtes', podcast = '/Users/andreamonroy/Documents/postgres/static/podcasts/dialogue1.mp3', image = '/Users/andreamonroy/Documents/postgres/static/images/did1.png', unit = unit1 )
+
+# db.drop_all()
 
 @app.cli.command(name='create_tables')
 @with_appcontext
 def create_tables():
-    db.create_all()
-    db.session.add_all([level1,level2,level3])
-    db.session.add_all([unit1,unit2,unit3])
-    db.session.commit()
+    db.drop_all()
+    # db.create_all()
+    # # db.session.add_all([level1,level2,level3])
+    # # db.session.add_all([unit1,unit2,unit3])
+    # # db.session.add_all([podcast1])
+    # db.session.commit()
 
 
 @app.route('/api/levels', methods=['GET'])
@@ -91,4 +148,3 @@ def get_levels():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
