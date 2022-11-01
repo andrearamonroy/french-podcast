@@ -124,7 +124,7 @@ unit1 = Unit(unit_name='Unit 1', level= level1)
 unit2 = Unit(unit_name='Unit 1', level= level2)
 unit3 = Unit(unit_name='Unit 1', level= level3)
 
-podcast1 = Podcast(name = 'vous êtes', podcast = '/Users/andreamonroy/Documents/postgres/static/podcasts/dialogue1.mp3', image = '/Users/andreamonroy/Documents/postgres/static/images/did1.png', unit = unit1 )
+# podcast1 = Podcast(name = 'vous êtes', podcast = '/Users/andreamonroy/Documents/postgres/static/podcasts/dialogue1.mp3', image = '/Users/andreamonroy/Documents/postgres/static/images/did1.png', unit = unit1 )
 
 # db.drop_all()
 
@@ -135,7 +135,7 @@ def create_tables():
     db.create_all()
     db.session.add_all([level1,level2,level3])
     db.session.add_all([unit1,unit2,unit3])
-    db.session.add_all([podcast1])
+    # db.session.add_all([podcast1])
     db.session.commit()
 
 
