@@ -124,7 +124,7 @@ unit1 = Unit(unit_name='Unit 1', level= level1)
 unit2 = Unit(unit_name='Unit 1', level= level2)
 unit3 = Unit(unit_name='Unit 1', level= level3)
 
-podcast1 = Podcast(name = 'vous êtes', podcast = 'static/podcasts/dialogue1.mp3', image = 'static/images/did1.png', unit = unit1 )
+podcast1 = Podcast(name = 'vous êtes', podcast = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/dialogue1.mp3', image = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/dig1.png', unit = unit1 )
 
 # db.drop_all()
 
