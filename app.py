@@ -81,27 +81,27 @@ podcast_schema = PodcastSchema()
 podcast_schema= PodcastSchema(many=True)
 
 #save podcast
-podcasts_folder = '/Users/andreamonroy/Documents/postgres/static/podcasts'
-app.config['podcasts_folder'] = podcasts_folder
+# podcasts_folder = '/Users/andreamonroy/Documents/postgres/static/podcasts'
+# app.config['podcasts_folder'] = podcasts_folder
 
-def save_file(filename, data):
-    path = os.path.join(app.config['podcasts_folder'], filename)
-    fp = open(path, 'wb')
-    fp.write(data)
-    fp.close()
+# def save_file(filename, data):
+#     path = os.path.join(app.config['podcasts_folder'], filename)
+#     fp = open(path, 'wb')
+#     fp.write(data)
+#     fp.close()
 
 #save_file('dialogue1.mp3', 'mp3')
 
 
 #save image
-images_folder = '/Users/andreamonroy/Documents/postgres/static/images'
-app.config['images_folder'] = images_folder
+# images_folder = '/Users/andreamonroy/Documents/postgres/static/images'
+# app.config['images_folder'] = images_folder
 
-def save_image(filename, data):
-    path = os.path.join(app.config['images_folder'], filename)
-    fp = open(path, 'wb')
-    fp.write(data)
-    fp.close()
+# def save_image(filename, data):
+#     path = os.path.join(app.config['images_folder'], filename)
+#     fp = open(path, 'wb')
+#     fp.write(data)
+#     fp.close()
 
 #save_image('dig1.png', 'png')
 
@@ -124,7 +124,7 @@ unit1 = Unit(unit_name='Unit 1', level= level1)
 unit2 = Unit(unit_name='Unit 1', level= level2)
 unit3 = Unit(unit_name='Unit 1', level= level3)
 
-podcast1 = Podcast(name = 'vous êtes', podcast = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/dialogue1.mp3', image = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/dig1.png', unit = unit1 )
+podcast1 = Podcast(podcast_name = 'vous êtes', podcast = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/dialogue1.mp3', image = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/dig1.png', unit = unit1 )
 
 # db.drop_all()
 
