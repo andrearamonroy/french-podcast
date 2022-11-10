@@ -116,17 +116,17 @@ podcast_schema= PodcastSchema(many=True)
 
 # load_file('dialogue1.mp3')
 
-level1 = Level(level_name='Débutant')
-level2 = Level(level_name='Intermédiaire')
-level3 = Level(level_name='Avancé')
+level1 = Level(level_name='Beginner')
+level2 = Level(level_name='Intermediate')
+level3 = Level(level_name='Advanced')
 
 unit1 = Unit(unit_name='Unit 1', level= level1)
 unit2 = Unit(unit_name='Unit 1', level= level2)
 unit3 = Unit(unit_name='Unit 1', level= level3)
 
-podcast1 = Podcast(podcast_name = 'vous êtes', podcast = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/dialogue1.mp3', unit = unit1 )
-podcast2 = Podcast(podcast_name = 'à la boulangerie', podcast = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/inter1.mp3', unit = unit2 )
-podcast3 = Podcast(podcast_name = 'au centre sportif', podcast = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/avan1.mp3', unit = unit3 )
+podcast1 = Podcast(podcast_name = 'You are', podcast = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/dialogue1.mp3', unit = unit1 )
+podcast2 = Podcast(podcast_name = 'At the bakery', podcast = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/inter1.mp3', unit = unit2 )
+podcast3 = Podcast(podcast_name = 'At the gym', podcast = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/avan1.mp3', unit = unit3 )
 # db.drop_all()
 
 @app.cli.command(name='create_tables')
