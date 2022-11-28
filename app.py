@@ -6,11 +6,16 @@ from marshmallow import Schema, fields
 import click
 from flask.cli import with_appcontext
 from werkzeug.utils import secure_filename
+import locale
 
 
 
 
 app = Flask(__name__)
+app_language = 'fr_SG'
+
+
+locale.setlocale(locale.LC_ALL, app_language)
 #basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI']='postgresql://xrbncjawkgbyyk:cd7cf74f97fd80a43cc5422fceaa88f3b1618374cfad73d771930a34e6f65017@ec2-44-199-22-207.compute-1.amazonaws.com:5432/dfp3agm8fn43e7' 
 #+ os.path.join(basedir, 'database.db')
@@ -46,15 +51,16 @@ class Unit(db.Model):
 
 class Podcast(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    podcast_name = db.Column(db.String(250), nullable=False)
+    podcast_name = db.Column(db.String(250),  nullable=False, )
     podcast = db.Column(db.Text)
-    image = db.Column(db.Text)
+    dialog = db.Column(db.Text)
     unit_id = db.Column(db.Integer, db.ForeignKey('unit.id'))
+
 
 #podcast schema
 class PodcastSchema(Schema):
     class Meta:
-        fields = ('id', 'podcast_name', 'podcast', 'image' ,'unit_id')  
+        fields = ('id', 'podcast_name', 'podcast', 'dialog' ,'unit_id')  
 
 #unit schema
 class UnitSchema(Schema):
@@ -116,18 +122,19 @@ podcast_schema= PodcastSchema(many=True)
 
 # load_file('dialogue1.mp3')
 
-level1 = Level(level_name='Beginner')
-level2 = Level(level_name='Intermediate')
-level3 = Level(level_name='Advanced')
+level1 = Level(level_name= u'Débutant')
+level2 = Level(level_name= u'Intermédiarie')
+level3 = Level(level_name= u'Avancé')
 
 unit1 = Unit(unit_name='Unit 1', level= level1)
 unit2 = Unit(unit_name='Unit 1', level= level2)
 unit3 = Unit(unit_name='Unit 1', level= level3)
 
-podcast1 = Podcast(podcast_name = 'You are', podcast = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/dialogue1.mp3', image = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/dig1.png',unit = unit1 )
-podcast2 = Podcast(podcast_name = 'At the bakery', podcast = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/inter1.mp3', image = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/dig2.png', unit = unit2 )
-podcast3 = Podcast(podcast_name = 'Mission' , podcast = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/dig3.mp3', image = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/dig3.png', unit = unit3)
-# db.drop_all()
+# podcast1 = Podcast(podcast_name = 'Vous êtes', podcast = ' 1 => "La réceptionniste: Vous êtes monsieur?", 2 => "Le client: Je suis Paul Bernard. Mon prénom est Paul et mon nom de famille est Bernard.", 3 => "La réceptionniste: Vous êtes anglais?", 4 => "Le client: Non, je suis canadien. Je suis de Vancouver.", 5 => "La réceptionniste: Vous êtes en France pour le travail? ", 6 => "Le client: Oui et non, Je suis écrivain, je suis toujours en vacances."',unit = unit1 )
+# podcast2 = Podcast(podcast_name = 'At the bakery', podcast = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/inter1.mp3', dialog = ' 1 => "Employé: Monsieur bonjour.", 2 => u"Client : Bonjour, je voudrais trois croissants au beurre, un pain aux raisins et un pain au chocolat, s'il vous plaît."'
+# , unit = unit2 )
+# podcast3 = Podcast(podcast_name = 'Mission' , podcast = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/dig3.mp3', dialog = '', unit = unit3)
+# # db.drop_all()
 
 @app.cli.command(name='create_tables')
 @with_appcontext
@@ -135,8 +142,8 @@ def create_tables():
     #db.drop_all()
     db.create_all()
     db.session.add_all([level1,level2,level3])
-    db.session.add_all([unit1,unit2,unit3])
-    db.session.add_all([podcast1,podcast2,podcast3])
+    # db.session.add_all([unit1,unit2,unit3])
+    # db.session.add_all([podcast1,podcast2,podcast3])
     db.session.commit()
 
 
