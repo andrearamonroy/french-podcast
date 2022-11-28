@@ -40,7 +40,7 @@ db.init_app(app)
     
 class Level(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    level_name = db.Column(db.UnicodeText, unique=True)
+    level_name = db.Column(db.String, unique=True)
     units = db.relationship('Unit', backref='level')
 
 class Unit(db.Model):
@@ -122,7 +122,7 @@ podcast_schema= PodcastSchema(many=True)
 
 # load_file('dialogue1.mp3')
 
-level1 = Level(level_name= 'D\u00e9butant')
+level1 = Level(level_name= 'Débutant')
 level2 = Level(level_name= 'Intermédiarie')
 level3 = Level(level_name= 'Avancé')
 
@@ -150,7 +150,7 @@ def create_tables():
 @app.route('/api/levels', methods=['GET'])
 def get_levels():
     all_levels = Level.query.all()
-    output = levels_schema.dump(all_levels)
+    output = levels_schema.dumps(all_levels, ensure_ascii=True)
     return jsonify(output)
 
 
