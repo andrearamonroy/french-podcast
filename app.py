@@ -40,18 +40,18 @@ db.init_app(app)
     
 class Level(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    level_name = db.Column(db.String(100), unique=True)
+    level_name = db.Column(db.Unicode, unique=True)
     units = db.relationship('Unit', backref='level')
 
 class Unit(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    unit_name = db.Column(db.String(250), nullable=False)
+    unit_name = db.Column(db.Unicode, nullable=False)
     level_id = db.Column(db.Integer, db.ForeignKey('level.id'))
     podcasts = db.relationship('Podcast', backref='unit')
 
 class Podcast(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    podcast_name = db.Column(db.String(250),  nullable=False, )
+    podcast_name = db.Column(db.Unicode,  nullable=False, )
     podcast = db.Column(db.Text)
     dialog = db.Column(db.Text)
     unit_id = db.Column(db.Integer, db.ForeignKey('unit.id'))
@@ -122,9 +122,9 @@ podcast_schema= PodcastSchema(many=True)
 
 # load_file('dialogue1.mp3')
 
-level1 = Level(level_name= u'Débutant')
-level2 = Level(level_name= u'Intermédiarie')
-level3 = Level(level_name= u'Avancé')
+level1 = Level(level_name= 'Débutant')
+level2 = Level(level_name= 'Intermédiarie')
+level3 = Level(level_name= 'Avancé')
 
 unit1 = Unit(unit_name='Unit 1', level= level1)
 unit2 = Unit(unit_name='Unit 1', level= level2)
