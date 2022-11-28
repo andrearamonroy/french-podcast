@@ -40,18 +40,18 @@ db.init_app(app)
     
 class Level(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    level_name = db.Column(db.Unicode, unique=True)
+    level_name = db.Column(db.UnicodeText, unique=True)
     units = db.relationship('Unit', backref='level')
 
 class Unit(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    unit_name = db.Column(db.Unicode, nullable=False)
+    unit_name = db.Column(db.UnicodeText, nullable=False)
     level_id = db.Column(db.Integer, db.ForeignKey('level.id'))
     podcasts = db.relationship('Podcast', backref='unit')
 
 class Podcast(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    podcast_name = db.Column(db.Unicode,  nullable=False, )
+    podcast_name = db.Column(db.UnicodeText,  nullable=False, )
     podcast = db.Column(db.Text)
     dialog = db.Column(db.Text)
     unit_id = db.Column(db.Integer, db.ForeignKey('unit.id'))
