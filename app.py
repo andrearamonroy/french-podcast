@@ -126,9 +126,9 @@ level1 = Level(level_name= 'Débutant')
 level2 = Level(level_name= 'Intermédiarie')
 level3 = Level(level_name= 'Avancé')
 
-unit1 = Unit(unit_name='Unit 1', level= level1)
-unit2 = Unit(unit_name='Unit 1', level= level2)
-unit3 = Unit(unit_name='Unit 1', level= level3)
+# unit1 = Unit(unit_name='Unit 1', level= level1)
+# unit2 = Unit(unit_name='Unit 1', level= level2)
+# unit3 = Unit(unit_name='Unit 1', level= level3)
 
 # podcast1 = Podcast(podcast_name = 'Vous êtes', podcast = ' 1 => "La réceptionniste: Vous êtes monsieur?", 2 => "Le client: Je suis Paul Bernard. Mon prénom est Paul et mon nom de famille est Bernard.", 3 => "La réceptionniste: Vous êtes anglais?", 4 => "Le client: Non, je suis canadien. Je suis de Vancouver.", 5 => "La réceptionniste: Vous êtes en France pour le travail? ", 6 => "Le client: Oui et non, Je suis écrivain, je suis toujours en vacances."',unit = unit1 )
 # podcast2 = Podcast(podcast_name = 'At the bakery', podcast = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/inter1.mp3', dialog = ' 1 => "Employé: Monsieur bonjour.", 2 => u"Client : Bonjour, je voudrais trois croissants au beurre, un pain aux raisins et un pain au chocolat, s'il vous plaît."'
