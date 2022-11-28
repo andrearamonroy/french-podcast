@@ -124,9 +124,9 @@ unit1 = Unit(unit_name='Unit 1', level= level1)
 unit2 = Unit(unit_name='Unit 1', level= level2)
 unit3 = Unit(unit_name='Unit 1', level= level3)
 
-podcast1 = Podcast(podcast_name = 'You are', podcast = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/dialogue1.mp3', unit = unit1 )
-podcast2 = Podcast(podcast_name = 'At the bakery', podcast = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/inter1.mp3', unit = unit2 )
-podcast3 = Podcast(podcast_name = 'At the gym', podcast = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/avan1.mp3', unit = unit3 )
+podcast1 = Podcast(podcast_name = 'You are', podcast = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/dialogue1.mp3', image = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/dig1.png',unit = unit1 )
+podcast2 = Podcast(podcast_name = 'At the bakery', podcast = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/inter1.mp3', image = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/dig2.png', unit = unit2 )
+podcast3 = Podcast(podcast_name = 'Mission', podcast = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/dig3.mp3', image = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/dig3.png' unit = unit3 )
 # db.drop_all()
 
 @app.cli.command(name='create_tables')
@@ -134,9 +134,9 @@ podcast3 = Podcast(podcast_name = 'At the gym', podcast = 'https://french-podcas
 def create_tables():
     #db.drop_all()
     db.create_all()
-    db.session.add_all([level1,level2,level3])
-    db.session.add_all([unit1,unit2,unit3])
-    db.session.add_all([podcast1,podcast2,podcast3])
+    # db.session.add_all([level1,level2,level3])
+    # db.session.add_all([unit1,unit2,unit3])
+    # db.session.add_all([podcast1,podcast2,podcast3])
     db.session.commit()
 
 
