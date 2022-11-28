@@ -12,10 +12,10 @@ import locale
 
 
 app = Flask(__name__)
-app_language = 'fr_SG'
+#app_language = 'fr_SG'
 
 
-locale.setlocale(locale.LC_ALL, app_language)
+#locale.setlocale(locale.LC_ALL, app_language)
 #basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI']='postgresql://xrbncjawkgbyyk:cd7cf74f97fd80a43cc5422fceaa88f3b1618374cfad73d771930a34e6f65017@ec2-44-199-22-207.compute-1.amazonaws.com:5432/dfp3agm8fn43e7' 
 #+ os.path.join(basedir, 'database.db')
