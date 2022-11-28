@@ -126,7 +126,7 @@ unit3 = Unit(unit_name='Unit 1', level= level3)
 
 podcast1 = Podcast(podcast_name = 'You are', podcast = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/dialogue1.mp3', image = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/dig1.png',unit = unit1 )
 podcast2 = Podcast(podcast_name = 'At the bakery', podcast = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/inter1.mp3', image = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/dig2.png', unit = unit2 )
-podcast3 = Podcast(podcast_name = 'Mission', podcast = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/dig3.mp3', image = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/dig3.png' unit = unit3 )
+podcast3 = Podcast(podcast_name = 'Mission' , podcast = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/dig3.mp3', image = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/dig3.png', unit = unit3)
 # db.drop_all()
 
 @app.cli.command(name='create_tables')
