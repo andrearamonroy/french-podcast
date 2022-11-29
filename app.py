@@ -41,7 +41,7 @@ db.init_app(app)
     
 class Level(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    level_name = db.Column(db.CHAR(length=None, collation=None, convert_unicode=True))
+    level_name = db.Column(db.CHAR(length=250, collation=None, convert_unicode=True))
     units = db.relationship('Unit', backref='level')
 
 class Unit(db.Model):
