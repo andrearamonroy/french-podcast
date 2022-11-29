@@ -6,7 +6,8 @@ from marshmallow import Schema, fields
 import click
 from flask.cli import with_appcontext
 from werkzeug.utils import secure_filename
-import locale
+from sqlalchemy.dialects.mysql import VARCHAR
+
 
 
 
@@ -40,7 +41,7 @@ db.init_app(app)
     
 class Level(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    level_name = db.Column(db.String, unique=True, dencoding='utf-16')
+    level_name = db.Column(db.String(255).with_variant(VARCHAR(255, charset="utf16"), unique=True))
     units = db.relationship('Unit', backref='level')
 
 class Unit(db.Model):
