@@ -151,7 +151,7 @@ def create_tables():
 @app.route('/api/levels', methods=['GET'])
 def get_levels():
     all_levels = Level.query.all()
-    output = levels_schema.dump(all_levels)
+    output = levels_schema.dumps(all_levels, ensure_ascii=False)
     return jsonify(output)
 
 #ensure_ascii=Falsec
