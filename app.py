@@ -41,7 +41,8 @@ db.init_app(app)
     
 class Level(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    level_name = db.Column(db.VARCHAR( length=250, collation=None, convert_unicode=True))
+    level_name = db.Column(db.Unicode)
+    level_description = db.Column(db.String)
     units = db.relationship('Unit', backref='level')
 
 class Unit(db.Model):
@@ -123,9 +124,9 @@ podcast_schema= PodcastSchema(many=True)
 
 # load_file('dialogue1.mp3')
 
-level1 = Level(level_name= 'Débutant')
-level2 = Level(level_name= 'Intermédiarie')
-level3 = Level(level_name= 'Avancé')
+# level1 = Level(level_name= 'Débutant')
+# level2 = Level(level_name= 'Intermédiarie')
+# level3 = Level(level_name= 'Avancé')
 
 # unit1 = Unit(unit_name='Unit 1', level= level1)
 # unit2 = Unit(unit_name='Unit 1', level= level2)
@@ -140,9 +141,9 @@ level3 = Level(level_name= 'Avancé')
 @app.cli.command(name='create_tables')
 @with_appcontext
 def create_tables():
-    #db.drop_all()
-    db.create_all()
-    db.session.add_all([level1,level2,level3])
+    db.drop_all()
+    #db.create_all()
+    #db.session.add_all([level1,level2,level3])
     # db.session.add_all([unit1,unit2,unit3])
     # db.session.add_all([podcast1,podcast2,podcast3])
     db.session.commit()
@@ -151,7 +152,7 @@ def create_tables():
 @app.route('/api/levels', methods=['GET'])
 def get_levels():
     all_levels = Level.query.all()
-    output = levels_schema.dumps(all_levels, ensure_ascii=True)
+    output = levels_schema.dump(all_levels)
     return jsonify(output)
 
 #ensure_ascii=Falsec
