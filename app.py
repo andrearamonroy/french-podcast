@@ -7,6 +7,12 @@ import click
 from flask.cli import with_appcontext
 from werkzeug.utils import secure_filename
 from sqlalchemy.dialects.mysql import VARCHAR
+from flask import Babel
+
+ALLOWED_LANGUAGES = {
+    'en': 'English',
+    'fr': 'French',
+}
 
 
 
@@ -15,6 +21,7 @@ from sqlalchemy.dialects.mysql import VARCHAR
 app = Flask(__name__)
 #app_language = 'fr_SG'
 
+babel = Babel(app)
 
 #locale.setlocale(locale.LC_ALL, app_language)
 #basedir = os.path.abspath(os.path.dirname(__file__))
@@ -124,7 +131,7 @@ podcast_schema= PodcastSchema(many=True)
 
 # load_file('dialogue1.mp3')
 
-level1 = Level(level_name= u'D\u00e9butant')
+level1 = Level(level_name= "Débutant")
 level2 = Level(level_name= 'Intermédiarie')
 level3 = Level(level_name= 'Avancé')
 
@@ -149,6 +156,7 @@ def create_tables():
     db.session.commit()
 
 
+@babel.localeselector
 @app.route('/api/levels', methods=['GET'])
 def get_levels():
     all_levels = Level.query.all()
