@@ -7,7 +7,8 @@ import click
 from flask.cli import with_appcontext
 from werkzeug.utils import secure_filename
 from sqlalchemy.dialects.mysql import VARCHAR
-from flask import Babel
+from flask_babel import Babel
+
 
 ALLOWED_LANGUAGES = {
     'en': 'English',
@@ -21,14 +22,15 @@ ALLOWED_LANGUAGES = {
 app = Flask(__name__)
 #app_language = 'fr_SG'
 
-babel = Babel(app)
+
 
 #locale.setlocale(locale.LC_ALL, app_language)
 #basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI']='postgresql://xrbncjawkgbyyk:cd7cf74f97fd80a43cc5422fceaa88f3b1618374cfad73d771930a34e6f65017@ec2-44-199-22-207.compute-1.amazonaws.com:5432/dfp3agm8fn43e7' 
 #+ os.path.join(basedir, 'database.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  
- 
+app.config['BABEL_DEFAULT_LOCALE'] = 'fr'
+babel = Babel(app)
  
 #ma = Marshmallow()
 
@@ -131,7 +133,7 @@ podcast_schema= PodcastSchema(many=True)
 
 # load_file('dialogue1.mp3')
 
-level1 = Level(level_name= "Débutant")
+level1 = Level(level_name= 'Débutant')
 level2 = Level(level_name= 'Intermédiarie')
 level3 = Level(level_name= 'Avancé')
 
@@ -145,6 +147,12 @@ level3 = Level(level_name= 'Avancé')
 # podcast3 = Podcast(podcast_name = 'Mission' , podcast = 'https://french-podcast-bucket.s3.us-east-2.amazonaws.com/dig3.mp3', dialog = '', unit = unit3)
 # # db.drop_all()
 
+
+@babel.localeselector
+def get_locale():
+    return 'fr'
+
+
 @app.cli.command(name='create_tables')
 @with_appcontext
 def create_tables():
@@ -156,7 +164,7 @@ def create_tables():
     db.session.commit()
 
 
-@babel.localeselector
+
 @app.route('/api/levels', methods=['GET'])
 def get_levels():
     all_levels = Level.query.all()
