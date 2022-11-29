@@ -124,7 +124,7 @@ podcast_schema= PodcastSchema(many=True)
 
 # load_file('dialogue1.mp3')
 
-level1 = Level(level_name= 'Débutant')
+level1 = Level(level_name= u'D\u00e9butant')
 level2 = Level(level_name= 'Intermédiarie')
 level3 = Level(level_name= 'Avancé')
 
