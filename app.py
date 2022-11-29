@@ -41,7 +41,7 @@ db.init_app(app)
     
 class Level(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    level_name = db.Column(db.CHAR(length=250, collation=None, convert_unicode=False))
+    level_name = db.Column(db.VARCHAR(charset="utf8", length=250, collation=None, convert_unicode=False))
     units = db.relationship('Unit', backref='level')
 
 class Unit(db.Model):
@@ -123,7 +123,7 @@ podcast_schema= PodcastSchema(many=True)
 
 # load_file('dialogue1.mp3')
 
-level1 = Level(level_name= 'D\\u00e9butant')
+level1 = Level(level_name= 'Débutant')
 level2 = Level(level_name= 'Intermédiarie')
 level3 = Level(level_name= 'Avancé')
 
