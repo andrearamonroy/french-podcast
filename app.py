@@ -40,7 +40,7 @@ db.init_app(app)
     
 class Level(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    level_name = db.Column(db.String, unique=True)
+    level_name = db.Column(db.String, unique=True, encoding='utf-16')
     units = db.relationship('Unit', backref='level')
 
 class Unit(db.Model):
@@ -150,9 +150,10 @@ def create_tables():
 @app.route('/api/levels', methods=['GET'])
 def get_levels():
     all_levels = Level.query.all()
-    output = levels_schema.dumps(all_levels, ensure_ascii=False)
+    output = levels_schema.dump(all_levels)
     return jsonify(output)
 
+#ensure_ascii=Falsec
 
 if __name__ == '__main__':
     app.run(debug=True)
