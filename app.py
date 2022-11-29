@@ -124,9 +124,9 @@ podcast_schema= PodcastSchema(many=True)
 
 # load_file('dialogue1.mp3')
 
-# level1 = Level(level_name= 'Débutant')
-# level2 = Level(level_name= 'Intermédiarie')
-# level3 = Level(level_name= 'Avancé')
+level1 = Level(level_name= 'Débutant')
+level2 = Level(level_name= 'Intermédiarie')
+level3 = Level(level_name= 'Avancé')
 
 # unit1 = Unit(unit_name='Unit 1', level= level1)
 # unit2 = Unit(unit_name='Unit 1', level= level2)
@@ -141,9 +141,9 @@ podcast_schema= PodcastSchema(many=True)
 @app.cli.command(name='create_tables')
 @with_appcontext
 def create_tables():
-    db.drop_all()
-    #db.create_all()
-    #db.session.add_all([level1,level2,level3])
+    #db.drop_all()
+    db.create_all()
+    db.session.add_all([level1,level2,level3])
     # db.session.add_all([unit1,unit2,unit3])
     # db.session.add_all([podcast1,podcast2,podcast3])
     db.session.commit()
