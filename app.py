@@ -50,7 +50,7 @@ db.init_app(app)
     
 class Level(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    level_name = db.Column(db.Unicode)
+    level_name = db.Column(db.NVARCHAR)
     #evel_description = db.Column(db.String)
     units = db.relationship('Unit', backref='level')
 
