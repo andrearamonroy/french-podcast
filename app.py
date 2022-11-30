@@ -168,8 +168,8 @@ def create_tables():
 @app.route('/api/levels', methods=['GET'])
 def get_levels():
     all_levels = Level.query.all()
-    output = levels_schema.dump(all_levels)
-    return jsonify(output)
+    output = levels_schema.dumps(all_levels,ensure_ascii=False).encode('utf8')
+    return jsonify(output.decode())
 
 #ensure_ascii=Falsec
 
